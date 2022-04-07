@@ -5,14 +5,14 @@ A [Homebrew](https://brew.sh/) tap for [observiq/observiq-otel-collector](https:
 ## Installing
 
 ```sh
-brew tap observiq/homebrew-observiq-otel-collecor
+brew tap observiq/homebrew-observiq-otel-collector
 brew update
-brew install observiq-otel-collecor
+brew install observiq/observiq-otel-collector/observiq-otel-collector
 ```
 
 ## Updating
 
 ```sh
 brew update
-brew upgrade observiq-otel-collecor
+brew upgrade observiq/observiq-otel-collector/observiq-otel-collector
 ```
