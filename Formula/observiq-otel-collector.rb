@@ -5,13 +5,13 @@
 class ObserviqOtelCollector < Formula
   desc ""
   homepage "https://github.com/observIQ/observiq-otel-collector"
-  version "0.5.0"
+  version "0.6.0"
   license "Apache 2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.5.0/observiq-otel-collector-v0.5.0-darwin-amd64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "7bad2ed17c148fb3ede6c21363c50f32f1560822db55785f38ff107a464b6c07"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-darwin-amd64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "ed3ecfd23abb3be0b01afb6c6c349e39502b59d604deff06ab89e4a04697ed4c"
 
       def install
         bin.install "observiq-otel-collector"
@@ -21,8 +21,8 @@ class ObserviqOtelCollector < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.5.0/observiq-otel-collector-v0.5.0-darwin-arm64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "587533cc1bf4ea56229a3c1d36a766951487b86c24cd741b03be8f4575caf044"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-darwin-arm64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "5f122e14068144bf4f2976b18cc2d2b720ef9726a9b979db3e2850647788181d"
 
       def install
         bin.install "observiq-otel-collector"
@@ -34,9 +34,9 @@ class ObserviqOtelCollector < Formula
   end
 
   on_linux do
-    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.5.0/observiq-otel-collector-v0.5.0-linux-arm.tar.gz", :using => CurlDownloadStrategy
-      sha256 "980a8beaad56b0035b7abb13dea92c8059822d342292a2a63e11061b4508b852"
+    if Hardware::CPU.intel?
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-amd64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "b1c09ff51209dc4a9750be7a26873383422456e4403ab36b7b194e2a4f31826c"
 
       def install
         bin.install "observiq-otel-collector"
@@ -45,9 +45,9 @@ class ObserviqOtelCollector < Formula
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.5.0/observiq-otel-collector-v0.5.0-linux-amd64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "eb75425047798de0b82965f4aec3393af73ad74b7e75852b743516ff6d25b682"
+    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-arm.tar.gz", :using => CurlDownloadStrategy
+      sha256 "a65fc7490d062f562a48f6c6771d4e6b3af1a6987c173e4eafa2bfc828ebe3d7"
 
       def install
         bin.install "observiq-otel-collector"
@@ -57,8 +57,8 @@ class ObserviqOtelCollector < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.5.0/observiq-otel-collector-v0.5.0-linux-arm64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "4670d27a294f213d383724b7794fe93e1d4846fa873e42d228e7b67ab49a1a82"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-arm64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "927b29b7dc071fa1774f7ada32a8ee096da17c05b71c6e08a79ae29d8bab1f8f"
 
       def install
         bin.install "observiq-otel-collector"
