@@ -5,28 +5,28 @@
 class ObserviqOtelCollector < Formula
   desc ""
   homepage "https://github.com/observIQ/observiq-otel-collector"
-  version "0.6.0"
+  version "1.0.0"
   license "Apache 2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-darwin-amd64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "ed3ecfd23abb3be0b01afb6c6c349e39502b59d604deff06ab89e4a04697ed4c"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v1.0.0/observiq-otel-collector-v1.0.0-darwin-amd64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "7be8eb43d9ed2b7fb0705a71b8d9f61a9c2d8eb3a552aaea8a43d6cf81d16f8c"
 
       def install
         bin.install "observiq-otel-collector"
-        prefix.install "LICENSE", "config.yaml"
+        prefix.install "LICENSE", "config.yaml", "VERSION.txt", "logging.yaml"
         prefix.install Dir["plugins"]
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-darwin-arm64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "5f122e14068144bf4f2976b18cc2d2b720ef9726a9b979db3e2850647788181d"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v1.0.0/observiq-otel-collector-v1.0.0-darwin-arm64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "2e4a29d9be8b4c93ae1308141c9642329c7ef130455e811970f514d03bff490b"
 
       def install
         bin.install "observiq-otel-collector"
-        prefix.install "LICENSE", "config.yaml"
+        prefix.install "LICENSE", "config.yaml", "VERSION.txt", "logging.yaml"
         prefix.install Dir["plugins"]
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
@@ -34,35 +34,35 @@ class ObserviqOtelCollector < Formula
   end
 
   on_linux do
-    if Hardware::CPU.intel?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-amd64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "b1c09ff51209dc4a9750be7a26873383422456e4403ab36b7b194e2a4f31826c"
+    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v1.0.0/observiq-otel-collector-v1.0.0-linux-arm.tar.gz", :using => CurlDownloadStrategy
+      sha256 "8b79ff95f8e6584fe3e5cfe2838672a453f2c02d814187abee58104aec126379"
 
       def install
         bin.install "observiq-otel-collector"
-        prefix.install "LICENSE", "config.yaml"
+        prefix.install "LICENSE", "config.yaml", "VERSION.txt", "logging.yaml"
         prefix.install Dir["plugins"]
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
     end
-    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-arm.tar.gz", :using => CurlDownloadStrategy
-      sha256 "a65fc7490d062f562a48f6c6771d4e6b3af1a6987c173e4eafa2bfc828ebe3d7"
+    if Hardware::CPU.intel?
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v1.0.0/observiq-otel-collector-v1.0.0-linux-amd64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "66b1a7e51d94cbf98d563a813bb571c8813417a33777859c863f6fb14c95f420"
 
       def install
         bin.install "observiq-otel-collector"
-        prefix.install "LICENSE", "config.yaml"
+        prefix.install "LICENSE", "config.yaml", "VERSION.txt", "logging.yaml"
         prefix.install Dir["plugins"]
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v0.6.0/observiq-otel-collector-v0.6.0-linux-arm64.tar.gz", :using => CurlDownloadStrategy
-      sha256 "927b29b7dc071fa1774f7ada32a8ee096da17c05b71c6e08a79ae29d8bab1f8f"
+      url "https://github.com/observIQ/observiq-otel-collector/releases/download/v1.0.0/observiq-otel-collector-v1.0.0-linux-arm64.tar.gz", :using => CurlDownloadStrategy
+      sha256 "cb991673672e69a997b6826b3cd479eec8671e1b79fda6c3a39bf09b41205611"
 
       def install
         bin.install "observiq-otel-collector"
-        prefix.install "LICENSE", "config.yaml"
+        prefix.install "LICENSE", "config.yaml", "VERSION.txt", "logging.yaml"
         prefix.install Dir["plugins"]
         lib.install "opentelemetry-java-contrib-jmx-metrics.jar"
       end
@@ -119,21 +119,23 @@ class ObserviqOtelCollector < Formula
     <key>Label</key>
     <string>com.observiq.collector</string>
 
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>OIQ_OTEL_COLLECTOR_HOME</key>
+      <string>#{prefix}</string>
+    </dict>
+
     <key>ProgramArguments</key>
     <array>
       <string>#{bin}/observiq-otel-collector</string>
       <string>--config</string>
       <string>#{prefix}/config.yaml</string>
+      <string>--logging</string>
+      <string>#{prefix}/logging.yaml</string>
     </array>
 
     <key>RunAtLoad</key>
     <true/>
-
-    <key>StandardErrorPath</key>
-    <string>/tmp/observiq-otel-collector.log</string>
-
-    <key>StandardOutPath</key>
-    <string>/tmp/observiq-otel-collector.log</string>
   </dict>
 </plist>
 
