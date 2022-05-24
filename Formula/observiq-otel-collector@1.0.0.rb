@@ -110,35 +110,9 @@ class ObserviqOtelCollectorAT100 < Formula
 
   plist_options :startup => false
 
-  def plist; <<~EOS
-    <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-
-    <key>Label</key>
-    <string>com.observiq.collector</string>
-
-    <key>EnvironmentVariables</key>
-    <dict>
-      <key>OIQ_OTEL_COLLECTOR_HOME</key>
-      <string>#{prefix}</string>
-    </dict>
-
-    <key>ProgramArguments</key>
-    <array>
-      <string>#{bin}/observiq-otel-collector</string>
-      <string>--config</string>
-      <string>#{prefix}/config.yaml</string>
-      <string>--logging</string>
-      <string>#{prefix}/logging.yaml</string>
-    </array>
-
-    <key>RunAtLoad</key>
-    <true/>
-  </dict>
-</plist>
-
-  EOS
+  service do
+    run [opt_bin/"observiq-otel-collector", "--config", opt_prefix/"config.yaml", "--logging", opt_prefix/"logging.yaml", "--manager", opt_prefix/"manager.yaml"]
+    environment_variables OIQ_OTEL_COLLECTOR_HOME: opt_prefix
+    keep_alive true
   end
 end
