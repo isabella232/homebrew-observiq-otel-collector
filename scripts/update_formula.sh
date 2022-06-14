@@ -15,11 +15,11 @@ if [ -z "$NEW_VERSION" ] ; then
     exit 1
 fi 
 
-# Update current live fomrula to old version
+# Update current live formula to old version
 old_file="Formula/$base_formula_name@$old_version.rb"
 new_file="Formula/$base_formula_name@$NEW_VERSION.rb"
 
-# Verify formula for version doesn't exits
+# Verify formula for version doesn't exist
 if [ -f "$old_file" ]; then
     echo "Formula already exists for version: $old_version"
     exit 1
