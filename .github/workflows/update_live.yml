@@ -1,0 +1,20 @@
+name: update-live-version
+on:
+  repository_dispatch:
+    types: [upstream_release]
+
+jobs:
+  update-live-version:
+    runs-on: "ubuntu-20.04"
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@v2
+      - name: Update Formulas
+        env:
+          OLD_VERSION: ${{ github.event.client_payload.old_version }}
+          NEW_VERSION: ${{ github.event.client_payload.new_version }}
+        run: |
+          scripts/update_formula.sh
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: "Made formula ${{ github.event.client_payload.new_version }} current"
