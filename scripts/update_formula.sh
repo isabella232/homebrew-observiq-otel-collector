@@ -41,8 +41,8 @@ mv "$base_file" "$old_file"
 brew_old_version="$(echo "$old_version" | sed 's/\.//g')" 
 
 # Add versions to file
-sed  -i '' 's/class ObserviqOtelCollector </'"class ObserviqOtelCollectorAT$brew_old_version"' </' "$old_file"
-sed  -i '' 's+observiq/observiq-otel-collector/observiq-otel-collector+'"observiq/observiq-otel-collector/observiq-otel-collector@$old_version"'+g' "$old_file"
+sed  -i 's/class ObserviqOtelCollector </'"class ObserviqOtelCollectorAT$brew_old_version"' </' "$old_file"
+sed  -i 's+observiq/observiq-otel-collector/observiq-otel-collector+'"observiq/observiq-otel-collector/observiq-otel-collector@$old_version"'+g' "$old_file"
 
 # Upated new version to current live
 
@@ -53,8 +53,8 @@ mv "$new_file" "$base_file"
 brew_new_version="$(echo "$NEW_VERSION" | sed 's/\.//g')"
 
 # Remove versions from file
-sed  -i '' 's/'"class ObserviqOtelCollectorAT$brew_new_version <"'/class ObserviqOtelCollector </' "$base_file"
-sed  -i '' 's+'"observiq/observiq-otel-collector/observiq-otel-collector@$NEW_VERSION"'+observiq/observiq-otel-collector/observiq-otel-collector+g' "$base_file"
+sed  -i 's/'"class ObserviqOtelCollectorAT$brew_new_version <"'/class ObserviqOtelCollector </' "$base_file"
+sed  -i 's+'"observiq/observiq-otel-collector/observiq-otel-collector@$NEW_VERSION"'+observiq/observiq-otel-collector/observiq-otel-collector+g' "$base_file"
 
 # Create symlink
 cd Aliases && ln -s "../$base_file" "observiq-otel-collector@$NEW_VERSION"
