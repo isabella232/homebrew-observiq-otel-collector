@@ -8,10 +8,9 @@ jobs:
     runs-on: "ubuntu-20.04"
     steps:
       - name: Checkout Sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Update Formulas
         env:
-          OLD_VERSION: ${{ github.event.client_payload.old_version }}
           NEW_VERSION: ${{ github.event.client_payload.new_version }}
         run: |
           scripts/update_formula.sh
